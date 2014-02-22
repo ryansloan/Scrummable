@@ -15,12 +15,23 @@
                 <TextBlock FontFamily="Segoe UI" FontWeight="Light" FontSize="32" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
             </StackPanel>
         </ControlTemplate>
+        <ControlTemplate x:Key="BigSaveButtonTemplate" TargetType="Button">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontFamily="Segoe UI Symbol" FontWeight="Light" FontSize="24" VerticalAlignment="Center" Text="" />
+                <TextBlock FontFamily="Segoe UI" FontWeight="Light" FontSize="32" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+            </StackPanel>
+        </ControlTemplate>
         <Style x:Key="BigBarButtonStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="Background" Value="#e1e1e1" />
                 <Setter Property="Foreground" Value="#262626" />
                 <Setter Property="Margin" Value="20 0" />
             </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#003366" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid Background="#222222">
@@ -32,7 +43,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
             <Label x:Name ="ConnectionStatusLbl" Foreground="#e1e1e1" Content="status" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label x:Name ="BugCountLbl" Foreground="#f1f1f1" Content="no bugs found" HorizontalAlignment="Right" VerticalAlignment="Top" />
-            <Button x:Name="GetBugsBtn" Foreground="#ffffff" Content="Refresh" Background="#222222" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetBugsBtn_Click" />
+            <Button x:Name="RefreshBtn" Foreground="#ffffff" Content="Refresh" Background="#222222" HorizontalAlignment="Right" VerticalAlignment="Center" Click="RefreshBtn_Click" />
         </StackPanel>
         <ListView x:Name="BugListView" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1024" DataContext="" Grid.Row="1">
             <ListView.View>
@@ -50,6 +61,7 @@
             <Button x:Name="AddDevBtn" Content="Dev" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="AddDevBtn_Click"/>
             <Button x:Name="ImportBugBtn" Content="Bug" Template="{StaticResource BigSearchButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="ImportBugBtn_Click" />
             <Button x:Name="AddSprintBtn" Content="Sprint" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
+            <Button x:Name="SaveChangeBtn" Content="Save Changes" Template="{StaticResource BigSaveButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
         </StackPanel>
     </Grid>
 </Window>

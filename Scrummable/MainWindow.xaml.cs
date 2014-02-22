@@ -41,9 +41,10 @@ namespace Scrummable
             this.bugList = new List<Bug>();
         }
 
-        private void GetBugsBtn_Click(object sender, RoutedEventArgs e)
+        private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            BugListView.ItemsSource = null;
+            BugListView.ItemsSource = this.bugList; //This is a hack. Should be using an observable collection...
 
         }
 
