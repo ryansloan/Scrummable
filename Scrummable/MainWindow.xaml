@@ -1,0 +1,48 @@
+﻿<Window x:Class="Scrummable.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Scrummable" Height="768" Width="1024">
+    <Window.Resources>
+        <ControlTemplate x:Key="BigAddButtonTemplate" TargetType="Button">
+        <StackPanel Orientation="Horizontal">
+                <TextBlock FontFamily="Segoe UI Symbol" FontWeight="Light" FontSize="24" VerticalAlignment="Center" Text="" />
+                <TextBlock FontFamily="Segoe UI" FontWeight="Light" FontSize="32" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+            </StackPanel>
+        </ControlTemplate>
+        <ControlTemplate x:Key="BigSearchButtonTemplate" TargetType="Button">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontFamily="Segoe UI Symbol" FontWeight="Light" FontSize="24" VerticalAlignment="Center" Text="" />
+                <TextBlock FontFamily="Segoe UI" FontWeight="Light" FontSize="32" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid Background="#222222">
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="40" MaxHeight="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
+            <Label x:Name ="ConnectionStatusLbl" Foreground="#e1e1e1" Content="status" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="UserNameTB" Foreground="#262626" Background="#ffffff" HorizontalAlignment="Right" VerticalAlignment="Center" Width="168px"/>
+            <Button x:Name="GetBugsBtn" Foreground="#ffffff" Content="Get Bugs!" Background="#222222" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetBugsBtn_Click" />
+            <Label x:Name ="BugCountLbl" Foreground="#f1f1f1" Content="no bugs found" HorizontalAlignment="Right" VerticalAlignment="Top" />
+        </StackPanel>
+        <ListView x:Name="BugListView" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1024" DataContext="" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="80"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=NodeName}" Header="Node" Width="120"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AssignedTo}" Header="Assigned To" Width="80"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Estimate}" Header="Estimate" Width="60"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=FixBy}" Header="Fix By" Width="80"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Title" Width="400"></GridViewColumn>
+                    </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" Background="#e1e1e1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2">
+            <Button Content="Dev" Background="#e1e1e1" Template="{StaticResource BigAddButtonTemplate}" Padding="20 20 20 20" />
+            <Button Content="Bug" Background="#e1e1e1" Template="{StaticResource BigSearchButtonTemplate}" Padding="20 20 20 20" />
+        </StackPanel>
+    </Grid>
+</Window>
