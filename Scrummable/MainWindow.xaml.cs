@@ -55,6 +55,7 @@ namespace Scrummable
             {
                 MessageBox.Show("Please enter a username!","Username Required");
             }
+            
         }
     }
 }

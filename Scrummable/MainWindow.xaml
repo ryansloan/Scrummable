@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Scrummable.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Scrummable" Height="768" Width="1024">
+        Title="Scrummable" Height="600" Width="1024">
     <Window.Resources>
         <ControlTemplate x:Key="BigAddButtonTemplate" TargetType="Button">
         <StackPanel Orientation="Horizontal">
@@ -15,6 +15,13 @@
                 <TextBlock FontFamily="Segoe UI" FontWeight="Light" FontSize="32" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
             </StackPanel>
         </ControlTemplate>
+        <Style x:Key="BigBarButtonStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="#e1e1e1" />
+                <Setter Property="Foreground" Value="#262626" />
+                <Setter Property="Margin" Value="20 0" />
+            </Style.Setters>
+        </Style>
     </Window.Resources>
     <Grid Background="#222222">
         <Grid.RowDefinitions>
@@ -41,8 +48,9 @@
             </ListView.View>
         </ListView>
         <StackPanel Orientation="Horizontal" Background="#e1e1e1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2">
-            <Button Content="Dev" Background="#e1e1e1" Template="{StaticResource BigAddButtonTemplate}" Padding="20 20 20 20" />
-            <Button Content="Bug" Background="#e1e1e1" Template="{StaticResource BigSearchButtonTemplate}" Padding="20 20 20 20" />
+            <Button x:Name="AddDevBtn" Content="Dev" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}"/>
+            <Button x:Name="ImportBugBtn" Content="Bug" Template="{StaticResource BigSearchButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
+            <Button x:Name="AddSprintBtn" Content="Sprint" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
         </StackPanel>
     </Grid>
 </Window>
