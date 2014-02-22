@@ -44,18 +44,24 @@ namespace Scrummable
 
         private void GetBugsBtn_Click(object sender, RoutedEventArgs e)
         {
-            String uname = UserNameTB.Text;
-            if (uname != "")
+
+
+        }
+
+        private void AddDevBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddUserWindow popup = new AddUserWindow();
+            popup.ShowDialog();
+            if (popup.NewUserName != "")
             {
-                this.bugList = this.connection.ImportBugsAssignedTo(uname);
-                BugCountLbl.Content = bugList.Count + " bugs found";
-                BugListView.ItemsSource = this.bugList;
+                this.bugList = this.connection.ImportBugsAssignedTo(popup.NewUserName);
+                this.UpdateBugCount();
             }
-            else
-            {
-                MessageBox.Show("Please enter a username!","Username Required");
-            }
-            
+        }
+        private void UpdateBugCount()
+        {
+            BugCountLbl.Content = this.bugList.Count + " bugs found";
+            BugListView.ItemsSource = this.bugList;
         }
     }
 }

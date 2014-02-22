@@ -10,7 +10,6 @@ namespace Scrummable
     class DummyDataConnection : BugDatabaseInterface
     {
         private String filename;
-        private List<Bug> hiddenBugList;
         private string[] fieldsArray = { "ID", "Title", "Assigned To", "Node Name", "Fix By", "Estimate"};
         public DummyDataConnection(String filename)
         {
