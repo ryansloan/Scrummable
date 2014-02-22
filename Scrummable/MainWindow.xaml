@@ -48,7 +48,7 @@
         </ListView>
         <StackPanel Orientation="Horizontal" Background="#e1e1e1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2">
             <Button x:Name="AddDevBtn" Content="Dev" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="AddDevBtn_Click"/>
-            <Button x:Name="ImportBugBtn" Content="Bug" Template="{StaticResource BigSearchButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
+            <Button x:Name="ImportBugBtn" Content="Bug" Template="{StaticResource BigSearchButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="ImportBugBtn_Click" />
             <Button x:Name="AddSprintBtn" Content="Sprint" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
         </StackPanel>
     </Grid>

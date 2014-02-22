@@ -28,7 +28,6 @@ namespace Scrummable
             InitializeComponent();
             ConnectionStatusLbl.Content = "Connecting...";
             this.connection = new DummyDataConnection("data.txt");
-
             if (this.connection.Connect())
             {
                 ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Green);
@@ -39,7 +38,7 @@ namespace Scrummable
                 ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Red);
                 ConnectionStatusLbl.Content = "Connection failed :(";
             }
-
+            this.bugList = new List<Bug>();
         }
 
         private void GetBugsBtn_Click(object sender, RoutedEventArgs e)
@@ -62,6 +61,22 @@ namespace Scrummable
         {
             BugCountLbl.Content = this.bugList.Count + " bugs found";
             BugListView.ItemsSource = this.bugList;
+        }
+
+        private void ImportBugBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Bug b;
+            AddBugWindow popup = new AddBugWindow();
+            popup.ShowDialog();
+            if (popup.BugId != "")
+            {
+                b=this.connection.ImportBugById(popup.BugId);
+                if (b != null)
+                {
+                    this.bugList.Add(b);
+                }
+                this.UpdateBugCount();
+            }
         }
     }
 }

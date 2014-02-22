@@ -59,7 +59,27 @@ namespace Scrummable
         }
         public Bug ImportBugById(String id)
         {
-            return new Bug();
+            StreamReader reader = new StreamReader(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\"+this.filename); //import semicolon delimited file
+            Bug b=null;
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                string[] values = line.Split(';');
+                //order: Id, Title, AssignedTo,FixBy,Estimate,NodeName
+                if (values[0].Equals(id))
+                {
+                    b = new Bug();
+                    b.Id = values[0];
+                    b.Title = values[1];
+                    b.AssignedTo = values[2];
+                    b.FixBy = values[3];
+                    b.Estimate = Convert.ToInt32(values[4]);
+                    b.NodeName = values[5];
+                }
+
+            }
+            reader.Close();
+            return b;
         }
         public bool ExportBugChanges(Bug b)
         {
