@@ -53,29 +53,25 @@ namespace Scrummable
             popup.ShowDialog();
             if (popup.NewUserName != "")
             {
-                this.bugList = this.connection.ImportBugsAssignedTo(popup.NewUserName);
+                this.bugList.AddRange(this.connection.ImportBugsAssignedTo(popup.NewUserName)); //doesn't properly handle dupes
                 this.UpdateBugCount();
             }
         }
         private void UpdateBugCount()
         {
-            BugCountLbl.Content = this.bugList.Count + " bugs found";
-            BugListView.ItemsSource = this.bugList;
+            BugCountLbl.Content = "Total: "+ this.bugList.Count + " bugs";
+            BugListView.ItemsSource = null;
+            BugListView.ItemsSource=this.bugList; //This is a hack. Should be using an observable collection...
         }
 
         private void ImportBugBtn_Click(object sender, RoutedEventArgs e)
         {
-            Bug b;
             AddBugWindow popup = new AddBugWindow();
             popup.ShowDialog();
             if (popup.BugId != "")
             {
                 String[] BugIds = popup.BugId.Split(';');
-                this.bugList=this.connection.ImportBugById(BugIds);
-                /*if (b != null)
-                {
-                    this.bugList.Add(b);
-                }*/
+                this.bugList.AddRange(this.connection.ImportBugById(BugIds)); //doesn't properly handle dupes
                 this.UpdateBugCount();
             }
         }
