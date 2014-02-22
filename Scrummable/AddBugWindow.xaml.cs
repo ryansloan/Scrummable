@@ -19,7 +19,7 @@ namespace Scrummable
     /// </summary>
     public partial class AddBugWindow : Window
     {
-        public String BugId;
+        public String BugId = "";
         public AddBugWindow()
         {
             InitializeComponent();

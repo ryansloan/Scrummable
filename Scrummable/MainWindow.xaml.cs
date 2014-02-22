@@ -70,11 +70,12 @@ namespace Scrummable
             popup.ShowDialog();
             if (popup.BugId != "")
             {
-                b=this.connection.ImportBugById(popup.BugId);
-                if (b != null)
+                String[] BugIds = popup.BugId.Split(';');
+                this.bugList=this.connection.ImportBugById(BugIds);
+                /*if (b != null)
                 {
                     this.bugList.Add(b);
-                }
+                }*/
                 this.UpdateBugCount();
             }
         }

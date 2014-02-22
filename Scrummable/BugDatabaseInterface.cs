@@ -12,6 +12,7 @@ namespace Scrummable
         void Disconnect();
         List<Bug> ImportBugsAssignedTo(String user);
         Bug ImportBugById(String id);
+        List<Bug> ImportBugById(String[] id);
         bool ExportBugChanges(Bug b);
     }
 }
