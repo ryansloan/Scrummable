@@ -33,6 +33,35 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="CardStyle" TargetType="StackPanel">
+            <Style.Setters>
+                <Setter Property="Background" Value="#ffffff" />
+                <Setter Property="Width" Value="200" />
+                <Setter Property="Margin" Value="4 4 4 4" />
+            </Style.Setters>
+        </Style>
+        <Style x:Key="CardTextStyle" TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="#262626" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="Padding" Value="4 4 4 4" />
+            </Style.Setters>
+        </Style>
+        <DataTemplate x:Key="BugFormat"  DataType="Bug">
+            <Border x:Name="cardBorder" BorderThickness="2" BorderBrush="Transparent" Margin="0">
+            <StackPanel Orientation="Vertical" Style="{StaticResource CardStyle}" x:Name="card">
+                <TextBlock Text="{Binding Title}" Style="{StaticResource CardTextStyle}" FontSize="12" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Estimate}" Style="{StaticResource CardTextStyle}" FontSize="10"/> 
+                <TextBlock Text="{Binding Id}" Style="{StaticResource CardTextStyle}" FontSize="10" />
+            </StackPanel>
+            </Border>
+            <DataTemplate.Triggers>
+                <Trigger SourceName="cardBorder" Property="IsMouseOver" Value="True">
+                    <Setter TargetName="cardBorder" Property="Background" Value="#999999" />  
+                </Trigger>
+                
+            </DataTemplate.Triggers>
+        </DataTemplate>
     </Window.Resources>
     <Grid Background="#222222">
         <Grid.RowDefinitions>
@@ -40,23 +69,21 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
+        <!--Toolbar and Status-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
             <Label x:Name ="ConnectionStatusLbl" Foreground="#e1e1e1" Content="status" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label x:Name ="BugCountLbl" Foreground="#f1f1f1" Content="no bugs found" HorizontalAlignment="Right" VerticalAlignment="Top" />
             <Button x:Name="RefreshBtn" Foreground="#ffffff" Content="Refresh" Background="#222222" HorizontalAlignment="Right" VerticalAlignment="Center" Click="RefreshBtn_Click" />
         </StackPanel>
-        <ListView x:Name="BugListView" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1024" DataContext="" Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="80"></GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=NodeName}" Header="Node" Width="120"></GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=AssignedTo}" Header="Assigned To" Width="80"></GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Estimate}" Header="Estimate" Width="60"></GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=FixBy}" Header="Fix By" Width="80"></GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Title" Width="400"></GridViewColumn>
-                    </GridView>
-            </ListView.View>
+        <!-- CardSpace -->
+        <ListView x:Name="BugListView"  Background="#222222" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" ItemsSource="{Binding bugList}" ItemTemplate="{StaticResource BugFormat}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel MaxWidth="1000" />
+                </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
         </ListView>
+        <!--BigBar-->
         <StackPanel Orientation="Horizontal" Background="#e1e1e1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2">
             <Button x:Name="AddDevBtn" Content="Dev" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="AddDevBtn_Click"/>
             <Button x:Name="ImportBugBtn" Content="Bug" Template="{StaticResource BigSearchButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="ImportBugBtn_Click" />

@@ -20,7 +20,7 @@ namespace Scrummable
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Bug> bugList;
+        List<Bug> bugList = new List<Bug>();
 
         BugDatabaseInterface connection;
         public MainWindow()
@@ -38,13 +38,14 @@ namespace Scrummable
                 ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Red);
                 ConnectionStatusLbl.Content = "Connection failed :(";
             }
-            this.bugList = new List<Bug>();
+            //this.bugList = new List<Bug>();
+            Application.Current.Properties["Bug List"] = new List<Bug>();
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
             BugListView.ItemsSource = null;
-            BugListView.ItemsSource = this.bugList; //This is a hack. Should be using an observable collection...
+            BugListView.ItemsSource = (List<Bug>)Application.Current.Properties["Bug List"];// this.bugList; //This is a hack. Should be using an observable collection...
 
         }
 
@@ -54,15 +55,15 @@ namespace Scrummable
             popup.ShowDialog();
             if (popup.NewUserName != "")
             {
-                this.bugList.AddRange(this.connection.ImportBugsAssignedTo(popup.NewUserName)); //doesn't properly handle dupes
+                ((List<Bug>)Application.Current.Properties["Bug List"]).AddRange(this.connection.ImportBugsAssignedTo(popup.NewUserName)); //doesn't properly handle dupes
                 this.UpdateBugCount();
             }
         }
         private void UpdateBugCount()
         {
-            BugCountLbl.Content = "Total: "+ this.bugList.Count + " bugs";
+            BugCountLbl.Content = "Total: "+ ((List<Bug>)Application.Current.Properties["Bug List"]).Count + " bugs";
             BugListView.ItemsSource = null;
-            BugListView.ItemsSource=this.bugList; //This is a hack. Should be using an observable collection...
+            BugListView.ItemsSource = (List<Bug>)Application.Current.Properties["Bug List"]; //this.bugList; //This is a hack. Should be using an observable collection...
         }
 
         private void ImportBugBtn_Click(object sender, RoutedEventArgs e)
@@ -72,7 +73,7 @@ namespace Scrummable
             if (popup.BugId != "")
             {
                 String[] BugIds = popup.BugId.Split(';');
-                this.bugList.AddRange(this.connection.ImportBugById(BugIds)); //doesn't properly handle dupes
+                ((List<Bug>)Application.Current.Properties["Bug List"]).AddRange(this.connection.ImportBugById(BugIds)); //doesn't properly handle dupes
                 this.UpdateBugCount();
             }
         }
