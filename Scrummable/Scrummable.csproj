@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.ProductStudio">
-      <HintPath>..\..\..\Interop.ProductStudio.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Common Files\Microsoft Shared\Microsoft Product Studio\Interop.ProductStudio.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

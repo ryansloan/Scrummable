@@ -22,31 +22,43 @@ namespace Scrummable
     {
         List<Bug> bugList = new List<Bug>();
 
-        BugDatabaseInterface connection;
+        BugDatabaseInterface connection = null;
         public MainWindow()
         {
             InitializeComponent();
-            ConnectionStatusLbl.Content = "Connecting...";
-            this.connection = new DummyDataConnection("data.txt");
-            if (this.connection.Connect())
+           
+        }
+
+        private void ConnectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.connection != null)
             {
-                ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Green);
-                ConnectionStatusLbl.Content = "Connected!";
+                this.connection.Disconnect();
+                this.connection = null;
+                ConnectionStatusLbl.Content = "not connected.";
+                ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Red);
+                ConnectBtn.Content = "Connect";
             }
             else
             {
-                ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Red);
-                ConnectionStatusLbl.Content = "Connection failed :(";
+                ConnectionStatusLbl.Content = "Connecting...";
+                //this.connection = new DummyDataConnection("data.txt");
+                this.connection = new ProductStudioConnection(ProductNameTB.Text, "redmond.corp.microsoft.com");
+                if (this.connection.Connect())
+                {
+                    ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Green);
+                    ConnectionStatusLbl.Content = "Connected!";
+                    ConnectBtn.Content = "Disconnect";
+                }
+                else
+                {
+                    ConnectionStatusLbl.Foreground = new SolidColorBrush(Colors.Red);
+                    ConnectionStatusLbl.Content = "Connection failed :(";
+                }
+                Application.Current.Properties["Bug List"] = new List<Bug>();
+                BugListView.ItemsSource = null;
+                BugListView.ItemsSource = (List<Bug>)Application.Current.Properties["Bug List"];// this.bugList; //This is a hack. Should be using an observable collection...
             }
-            //this.bugList = new List<Bug>();
-            Application.Current.Properties["Bug List"] = new List<Bug>();
-        }
-
-        private void RefreshBtn_Click(object sender, RoutedEventArgs e)
-        {
-            BugListView.ItemsSource = null;
-            BugListView.ItemsSource = (List<Bug>)Application.Current.Properties["Bug List"];// this.bugList; //This is a hack. Should be using an observable collection...
-
         }
 
         private void AddDevBtn_Click(object sender, RoutedEventArgs e)
