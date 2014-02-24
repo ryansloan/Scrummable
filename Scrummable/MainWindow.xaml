@@ -50,8 +50,9 @@
         <DataTemplate x:Key="BugFormat"  DataType="Bug">
             <Border x:Name="cardBorder" BorderThickness="2" BorderBrush="Transparent" Margin="0">
             <StackPanel Orientation="Vertical" Style="{StaticResource CardStyle}" x:Name="card">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource CardTextStyle}" FontSize="12" TextWrapping="Wrap"/>
-                <TextBlock Text="{Binding Estimate}" Style="{StaticResource CardTextStyle}" FontSize="10"/> 
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource CardTextStyle}" FontSize="12" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding FixBy}" Style="{StaticResource CardTextStyle}" FontSize="10" />
+                    <TextBlock Text="{Binding Estimate}" Style="{StaticResource CardTextStyle}" FontSize="10"/> 
                 <TextBlock Text="{Binding Id}" Style="{StaticResource CardTextStyle}" FontSize="10" />
             </StackPanel>
             </Border>
@@ -72,7 +73,7 @@
         <!--Toolbar and Status-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
             <Label x:Name ="ConnectionStatusLbl" Foreground="#e1e1e1" Content="not connected." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 20 0"/>
-            <Label x:Name ="BugCountLbl" Foreground="#f1f1f1" Content="no bugs found" HorizontalAlignment="Right" VerticalAlignment="Top" />
+            <Label x:Name ="BugCountLbl" Foreground="#f1f1f1" Content="" HorizontalAlignment="Right" VerticalAlignment="Top" MinWidth="120" />
             <TextBox x:Name="ProductNameTB" Foreground="#262626" HorizontalAlignment="Right" VerticalAlignment="Center" Width="160" Text="Product Studio SDK Samples"/>
             <Button x:Name="ConnectBtn" Foreground="#ffffff" Content="Connect" Background="#222222" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ConnectBtn_Click" />
         </StackPanel>
@@ -89,8 +90,8 @@
         <StackPanel Orientation="Horizontal" Background="#e1e1e1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2">
             <Button x:Name="AddDevBtn" Content="Dev" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="AddDevBtn_Click"/>
             <Button x:Name="ImportBugBtn" Content="Bug" Template="{StaticResource BigSearchButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="ImportBugBtn_Click" />
-            <Button x:Name="AddSprintBtn" Content="Sprint" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
-            <Button x:Name="SaveChangeBtn" Content="Save Changes" Template="{StaticResource BigSaveButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" />
+            <Button x:Name="AddSprintBtn" Content="Sprint" Template="{StaticResource BigAddButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="AddSprintBtn_Click" />
+            <Button x:Name="SaveChangeBtn" Content="Save Changes" Template="{StaticResource BigSaveButtonTemplate}" Style="{StaticResource BigBarButtonStyle}" Click="SaveChangeBtn_Click" />
         </StackPanel>
     </Grid>
 </Window>

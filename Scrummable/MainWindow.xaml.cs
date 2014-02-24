@@ -89,5 +89,15 @@ namespace Scrummable
                 this.UpdateBugCount();
             }
         }
+
+        private void AddSprintBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Not yet implemented.");
+        }
+
+        private void SaveChangeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Not yet implemented.");
+        }
     }
 }
